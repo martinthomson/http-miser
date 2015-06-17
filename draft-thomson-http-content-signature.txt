@@ -8,7 +8,7 @@ Intended status: Informational                             June 17, 2015
 Expires: December 19, 2015
 
 
-                Content Signature Header Field for HTTP
+                Content-Signature Header Field for HTTP
               draft-thomson-http-content-signature-latest
 
 Abstract
