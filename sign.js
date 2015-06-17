@@ -1,3 +1,4 @@
+// Generates signature values for the example.
 base64 = x => btoa(String.fromCharCode.apply(null, new Uint8Array(x)))
   .replace(/\+/g, '-').replace(/\//g, '_').replace(/={1,2}$/,'');
 crypto.subtle.generateKey({name: 'ECDSA', namedCurve: 'P-256'}, false, ['sign'])
