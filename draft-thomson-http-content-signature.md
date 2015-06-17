@@ -1,5 +1,5 @@
 ---
-title: Content Signature Header Field for HTTP
+title: Content-Signature Header Field for HTTP
 abbrev: Content-Signature
 docname: draft-thomson-http-content-signature-latest
 date: 2015
