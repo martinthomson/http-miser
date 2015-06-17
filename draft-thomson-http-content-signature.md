@@ -1,7 +1,7 @@
 ---
 title: Content Signature Header Field for HTTP
 abbrev: Content-Signature
-docname: draft-thomson-http-content-integrity-latest
+docname: draft-thomson-http-content-signature-latest
 date: 2015
 category: info
 
@@ -80,6 +80,24 @@ signature key.
 
 RFC 2119 [RFC2119] defines the terms MUST, SHOULD, and MAY.
 
+## Example
+
+The following HTTP/1.1 response is signed.  Line wrapping is added to fit
+formatting constraints.
+
+~~~
+HTTP/1.1 200 OK
+Date: Wed, 17 Jun 2015 17:14:17 GMT
+Content-Length: 15
+Encryption-Key: keyid=a;
+    p256ecdsa=BGE6B8Dv8w2I37jSElcapp5AVg_1FXcwbIeiBkvxEBv
+              2bB_2Xa_zSlN8TKClc-ugXt2XDYqriOmqgNp8YMmwSLM
+Content-Signature: keyid=a;
+    p256ecdsa=xoIRyGSbJyTatze5p8pwS8dxGaStlXkuAsQ6Zb9Z3mt
+              Cg9UMrEMJ5AJ1KTs2XlZvJjaJm4ga_TFbFTMZOfKt0A
+
+Hello, World!
+~~~
 
 # The Content-Signature Header Field {#csig}
 
@@ -91,7 +109,8 @@ Content-Signature = 1#csig_params
 csig_params = [ parameter *( ";" parameter ) ]
 ~~~
 
-Each content signature is compromised of zero or more parameters.
+Each content signature is separated by a comma (,) and is compromised of zero or
+more colon-separated parameters.
 
 The following parameters are defined:
 
@@ -99,19 +118,25 @@ keyid:
 
 : This parameter identifies the key that was used to produce the signature.
   This could identify a key that is carried in the Encryption-Key header field.
+  This parameter can always be provided together with other parameters.
 
 p256ecdsa:
 
 : This parameter contains an ECDSA [X.692] signature on the P-256 curve
   [FIPS186].  The signature is produced using the SHA-256 hash [FIPS180-2].  The
   resulting signature is encoded using URL-safe variant of base-64 [RFC4648].
+  No parameters other than `keyid` can be specified along with the `p256ecdsa`
+  parameter.
 
 
 Additional header field values can be defined and registered.  The parameter
-MUST describe how the signature is produced and encoded.  Though the parameter
-defined in this document do not contain any optional or parameterized features,
-new signature algorithms MAY use additional parameters for conveying information
-about optional features.
+MUST describe how the signature is produced and encoded.
+
+Though the parameter defined in this document do not contain any optional or
+parameterized features, new signature algorithms MAY use additional parameters
+for conveying information about optional features.  The definition of new
+parameters SHOULD describe what parameters can be combined with that parameter
+and the resulting semantics.
 
 The Content-Signature header field might be most efficiently produced as a
 trailer field.  This allows for the production of the message body and the
@@ -120,8 +145,8 @@ signature in a single pass.
 
 # Describing Signature Keys {#keys}
 
-A message MAY include a signature public key.  This can be used to provision
-trusted keys.
+A message MAY include a signing key.  This can be used to provision trusted
+keys.
 
 Providing an encryption key is typically only useful where the provision of the
 key can be attributed a higher level of trust than the signature.  A message
@@ -173,12 +198,14 @@ Message Header Registry, as detailed in {{csig}}.
 * Reference: {{csig}} of this specification
 * Notes:
 
+
 ## Content-Signature Parameter Registry
 
 A registry is established for parameters used by the `Content-Signature` header
 field under the "Hypertext Transfer Protocol (HTTP) Parameters" grouping.  The
 "Hypertext Transfer Protocol (HTTP) Encryption Parameters" operates under an
-"Specification Required" policy [RFC5226].
+"Specification Required" policy [RFC5226].  The designated expert is advised to
+consider the guidance in {{csig}} when reviewing new registrations.
 
 * Parameter Name: The name of the parameter.
 * Purpose: A brief description of the purpose of the parameter.
@@ -198,6 +225,7 @@ The initial contents of this registry are:
 * Purpose: Conveys a signature using P-256, ECDSA and SHA-256 as described in
   {{csig}} of this document.
 * Reference: {{csig}} of this document
+
 
 ## The p256ecdsa Parameter for the Encryption-Key Header Field
 
