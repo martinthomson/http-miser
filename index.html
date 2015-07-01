@@ -476,7 +476,7 @@ ul.toc a:first-child {
 
   <meta name="dct.creator" content="Thomson, M." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-thomson-http-content-signature-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2015-6-17" />
+  <meta name="dct.issued" scheme="ISO8601" content="2015-7-1" />
   <meta name="dct.abstract" content="A Content-Signature header field is defined for use in HTTP.  This header field carries a signature of the payload body of a message." />
   <meta name="description" content="A Content-Signature header field is defined for use in HTTP.  This header field carries a signature of the payload body of a message." />
 
@@ -497,10 +497,10 @@ ul.toc a:first-child {
 </tr>
 <tr>
   <td class="left">Intended status: Informational</td>
-  <td class="right">June 17, 2015</td>
+  <td class="right">July 1, 2015</td>
 </tr>
 <tr>
-  <td class="left">Expires: December 19, 2015</td>
+  <td class="left">Expires: January 2, 2016</td>
   <td class="right"></td>
 </tr>
 
@@ -521,7 +521,7 @@ ul.toc a:first-child {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on December 19, 2015.</p>
+<p>This Internet-Draft will expire on January 2, 2016.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -567,11 +567,11 @@ HTTP/1.1 200 OK
 Date: Wed, 17 Jun 2015 17:14:17 GMT
 Content-Length: 15
 Encryption-Key: keyid=a;
-    p256ecdsa=BGE6B8Dv8w2I37jSElcapp5AVg_1FXcwbIeiBkvxEBv
-              2bB_2Xa_zSlN8TKClc-ugXt2XDYqriOmqgNp8YMmwSLM
+    p256ecdsa=BDUJCg0PKtFrgI_lc5ar9qBm83cH_QJomSjXYUkIlswX
+              KTdYLlJjFEWlIThQ0Y-TFZyBbUinNp-rou13Wve_Y_A
 Content-Signature: keyid=a;
-    p256ecdsa=xoIRyGSbJyTatze5p8pwS8dxGaStlXkuAsQ6Zb9Z3mt
-              Cg9UMrEMJ5AJ1KTs2XlZvJjaJm4ga_TFbFTMZOfKt0A
+    p256ecdsa=Hil-_2xU6BjQcU6a8nhMCChLr-fkrek5tE6pokWlJb0
+              HkQiryW045vVpljN_xBbF8sTrsWb9MiQLCdYlP1jZtA
 
 Hello, World!
 </pre>
@@ -582,7 +582,8 @@ Content-Signature = 1#csig_params
 csig_params = [ parameter *( ";" parameter ) ]
 </pre>
 <p id="rfc.section.2.p.2">Each content signature is separated by a comma (,) and is compromised of zero or more colon-separated parameters.</p>
-<p id="rfc.section.2.p.3">The following parameters are defined:</p>
+<p id="rfc.section.2.p.3">The message payload is prefixed with the string &#8220;Content-Encryption:&#8221; and a single zero-valued octet before being passed to the signature algorithm.  This discriminator string reduces the chances that a signature is viable for reuse in other contexts.</p>
+<p id="rfc.section.2.p.4">The following parameters are defined:</p>
 <p/>
 
 <dl>
@@ -591,9 +592,9 @@ csig_params = [ parameter *( ";" parameter ) ]
   <dt>p256ecdsa:</dt>
   <dd style="margin-left: 8">This parameter contains an ECDSA <a href="#X.692">[X.692]</a> signature on the P-256 curve <a href="#FIPS186">[FIPS186]</a>.  The signature is produced using the SHA-256 hash <a href="#FIPS180-2">[FIPS180-2]</a>.  The resulting signature is encoded using URL-safe variant of base-64 <a href="#RFC4648">[RFC4648]</a>.  No parameters other than <samp>keyid</samp> can be specified along with the <samp>p256ecdsa</samp> parameter.</dd>
 </dl>
-<p id="rfc.section.2.p.5">Additional header field values can be defined and registered.  The parameter MUST describe how the signature is produced and encoded.</p>
-<p id="rfc.section.2.p.6">Though the parameter defined in this document do not contain any optional or parameterized features, new signature algorithms MAY use additional parameters for conveying information about optional features.  The definition of new parameters SHOULD describe what parameters can be combined with that parameter and the resulting semantics.</p>
-<p id="rfc.section.2.p.7">The Content-Signature header field might be most efficiently produced as a trailer field.  This allows for the production of the message body and the signature in a single pass.</p>
+<p id="rfc.section.2.p.6">Additional header field values can be defined and registered.  The parameter MUST describe how the signature is produced and encoded.</p>
+<p id="rfc.section.2.p.7">Though the parameter defined in this document do not contain any optional or parameterized features, new signature algorithms MAY use additional parameters for conveying information about optional features.  The definition of new parameters SHOULD describe what parameters can be combined with that parameter and the resulting semantics.</p>
+<p id="rfc.section.2.p.8">The Content-Signature header field might be most efficiently produced as a trailer field.  This allows for the production of the message body and the signature in a single pass.</p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#keys" id="keys">Describing Signature Keys</a></h1>
 <p id="rfc.section.3.p.1">A message MAY include a signing key.  This can be used to provision trusted keys.</p>
 <p id="rfc.section.3.p.2">Providing an encryption key is typically only useful where the provision of the key can be attributed a higher level of trust than the signature.  A message sent using out-of-band content-encoding <a href="#I-D.reschke-http-oob-encoding">[I-D.reschke-http-oob-encoding]</a> is one situation that benefits from the use of this header field.</p>

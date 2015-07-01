@@ -4,8 +4,8 @@
 
 httpbis                                                       M. Thomson
 Internet-Draft                                                   Mozilla
-Intended status: Informational                             June 17, 2015
-Expires: December 19, 2015
+Intended status: Informational                              July 1, 2015
+Expires: January 2, 2016
 
 
                 Content-Signature Header Field for HTTP
@@ -31,7 +31,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 19, 2015.
+   This Internet-Draft will expire on January 2, 2016.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Thomson                 Expires December 19, 2015               [Page 1]
+Thomson                  Expires January 2, 2016                [Page 1]
 
-Internet-Draft              Content-Signature                  June 2015
+Internet-Draft              Content-Signature                  July 2015
 
 
 Table of Contents
@@ -69,7 +69,7 @@ Table of Contents
    5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
      5.1.  Content-Signature Header Field  . . . . . . . . . . . . .   5
      5.2.  Content-Signature Parameter Registry  . . . . . . . . . .   5
-       5.2.1.  keyid . . . . . . . . . . . . . . . . . . . . . . . .   5
+       5.2.1.  keyid . . . . . . . . . . . . . . . . . . . . . . . .   6
        5.2.2.  p256ecdsa . . . . . . . . . . . . . . . . . . . . . .   6
      5.3.  The p256ecdsa Parameter for the Encryption-Key Header
            Field . . . . . . . . . . . . . . . . . . . . . . . . . .   6
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Thomson                 Expires December 19, 2015               [Page 2]
+Thomson                  Expires January 2, 2016                [Page 2]
 
-Internet-Draft              Content-Signature                  June 2015
+Internet-Draft              Content-Signature                  July 2015
 
 
 1.2.  Example
@@ -123,11 +123,11 @@ Internet-Draft              Content-Signature                  June 2015
    Date: Wed, 17 Jun 2015 17:14:17 GMT
    Content-Length: 15
    Encryption-Key: keyid=a;
-       p256ecdsa=BGE6B8Dv8w2I37jSElcapp5AVg_1FXcwbIeiBkvxEBv
-                 2bB_2Xa_zSlN8TKClc-ugXt2XDYqriOmqgNp8YMmwSLM
+       p256ecdsa=BDUJCg0PKtFrgI_lc5ar9qBm83cH_QJomSjXYUkIlswX
+                 KTdYLlJjFEWlIThQ0Y-TFZyBbUinNp-rou13Wve_Y_A
    Content-Signature: keyid=a;
-       p256ecdsa=xoIRyGSbJyTatze5p8pwS8dxGaStlXkuAsQ6Zb9Z3mt
-                 Cg9UMrEMJ5AJ1KTs2XlZvJjaJm4ga_TFbFTMZOfKt0A
+       p256ecdsa=Hil-_2xU6BjQcU6a8nhMCChLr-fkrek5tE6pokWlJb0
+                 HkQiryW045vVpljN_xBbF8sTrsWb9MiQLCdYlP1jZtA
 
    Hello, World!
 
@@ -143,6 +143,11 @@ Internet-Draft              Content-Signature                  June 2015
    Each content signature is separated by a comma (,) and is compromised
    of zero or more colon-separated parameters.
 
+   The message payload is prefixed with the string "Content-Encryption:"
+   and a single zero-valued octet before being passed to the signature
+   algorithm.  This discriminator string reduces the chances that a
+   signature is viable for reuse in other contexts.
+
    The following parameters are defined:
 
    keyid:  This parameter identifies the key that was used to produce
@@ -157,19 +162,19 @@ Internet-Draft              Content-Signature                  June 2015
       than "keyid" can be specified along with the "p256ecdsa"
       parameter.
 
+
+
+
+Thomson                  Expires January 2, 2016                [Page 3]
+
+Internet-Draft              Content-Signature                  July 2015
+
+
    Additional header field values can be defined and registered.  The
    parameter MUST describe how the signature is produced and encoded.
 
    Though the parameter defined in this document do not contain any
    optional or parameterized features, new signature algorithms MAY use
-
-
-
-Thomson                 Expires December 19, 2015               [Page 3]
-
-Internet-Draft              Content-Signature                  June 2015
-
-
    additional parameters for conveying information about optional
    features.  The definition of new parameters SHOULD describe what
    parameters can be combined with that parameter and the resulting
@@ -212,19 +217,21 @@ Internet-Draft              Content-Signature                  June 2015
    particular, the request URI and the "Content-Type" header field are
    not authenticated by this scheme.
 
+
+
+
+
+Thomson                  Expires January 2, 2016                [Page 4]
+
+Internet-Draft              Content-Signature                  July 2015
+
+
    No replay protection is offered for signatures.  This means that
    valid messages can be captured and replayed.  Since there is no
    binding between the identity of a resource and the signature, the
    content of a message can be replayed for a request or response to a
    different resource; requests can be replayed as responses; and
    messages can be replayed at different times.
-
-
-
-Thomson                 Expires December 19, 2015               [Page 4]
-
-Internet-Draft              Content-Signature                  June 2015
-
 
    Replay protection can be provided by including information in the
    message payload itself that binds the content to a specific resource,
@@ -265,6 +272,16 @@ Internet-Draft              Content-Signature                  June 2015
 
    The initial contents of this registry are:
 
+
+
+
+
+
+Thomson                  Expires January 2, 2016                [Page 5]
+
+Internet-Draft              Content-Signature                  July 2015
+
+
 5.2.1.  keyid
 
    o  Parameter Name: keyid
@@ -272,15 +289,6 @@ Internet-Draft              Content-Signature                  June 2015
    o  Purpose: Identify the key that is in use.
 
    o  Reference: Section 2 of this document
-
-
-
-
-
-Thomson                 Expires December 19, 2015               [Page 5]
-
-Internet-Draft              Content-Signature                  June 2015
-
 
 5.2.2.  p256ecdsa
 
@@ -323,20 +331,19 @@ Internet-Draft              Content-Signature                  June 2015
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
 
+
+
+Thomson                  Expires January 2, 2016                [Page 6]
+
+Internet-Draft              Content-Signature                  July 2015
+
+
    [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
               Encodings", RFC 4648, October 2006.
 
    [RFC7230]  Fielding, R. and J. Reschke, "Hypertext Transfer Protocol
               (HTTP/1.1): Message Syntax and Routing", RFC 7230, June
               2014.
-
-
-
-
-Thomson                 Expires December 19, 2015               [Page 6]
-
-Internet-Draft              Content-Signature                  June 2015
-
 
    [RFC7231]  Fielding, R. and J. Reschke, "Hypertext Transfer Protocol
               (HTTP/1.1): Semantics and Content", RFC 7231, June 2014.
@@ -382,11 +389,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-Thomson                 Expires December 19, 2015               [Page 7]
+Thomson                  Expires January 2, 2016                [Page 7]
