@@ -23,6 +23,7 @@ author:
 normative:
   RFC2119:
   RFC4648:
+  RFC5226:
   RFC7230:
   RFC7231:
   X.692:
