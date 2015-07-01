@@ -341,6 +341,10 @@ Internet-Draft              Content-Signature                  July 2015
    [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
               Encodings", RFC 4648, October 2006.
 
+   [RFC5226]  Narten, T. and H. Alvestrand, "Guidelines for Writing an
+              IANA Considerations Section in RFCs", BCP 26, RFC 5226,
+              May 2008.
+
    [RFC7230]  Fielding, R. and J. Reschke, "Hypertext Transfer Protocol
               (HTTP/1.1): Message Syntax and Routing", RFC 7230, June
               2014.
@@ -365,10 +369,6 @@ Author's Address
    Mozilla
 
    Email: martin.thomson@gmail.com
-
-
-
-
 
 
 
