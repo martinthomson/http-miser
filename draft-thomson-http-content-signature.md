@@ -90,11 +90,11 @@ HTTP/1.1 200 OK
 Date: Wed, 17 Jun 2015 17:14:17 GMT
 Content-Length: 15
 Encryption-Key: keyid=a;
-    p256ecdsa=BGE6B8Dv8w2I37jSElcapp5AVg_1FXcwbIeiBkvxEBv
-              2bB_2Xa_zSlN8TKClc-ugXt2XDYqriOmqgNp8YMmwSLM
+    p256ecdsa=BDUJCg0PKtFrgI_lc5ar9qBm83cH_QJomSjXYUkIlswX
+              KTdYLlJjFEWlIThQ0Y-TFZyBbUinNp-rou13Wve_Y_A
 Content-Signature: keyid=a;
-    p256ecdsa=xoIRyGSbJyTatze5p8pwS8dxGaStlXkuAsQ6Zb9Z3mt
-              Cg9UMrEMJ5AJ1KTs2XlZvJjaJm4ga_TFbFTMZOfKt0A
+    p256ecdsa=Hil-_2xU6BjQcU6a8nhMCChLr-fkrek5tE6pokWlJb0
+              HkQiryW045vVpljN_xBbF8sTrsWb9MiQLCdYlP1jZtA
 
 Hello, World!
 ~~~
@@ -111,6 +111,11 @@ csig_params = [ parameter *( ";" parameter ) ]
 
 Each content signature is separated by a comma (,) and is compromised of zero or
 more colon-separated parameters.
+
+The message payload is prefixed with the string "Content-Encryption:" and a
+single zero-valued octet before being passed to the signature algorithm.  This
+discriminator string reduces the chances that a signature is viable for reuse in
+other contexts.
 
 The following parameters are defined:
 
