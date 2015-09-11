@@ -100,6 +100,11 @@ Content-Signature: keyid=a;
 Hello, World!
 ~~~
 
+This places the signing key in the same message as the signature. This reduces
+the value of the signature to that of a checksum; more value is realized when
+the key is established over a separate channel, such as might happen with
+[I-D.reschke-http-oob-encoding].
+
 # The Content-Signature Header Field {#csig}
 
 The Content-Signature header field uses the extended ABNF syntax defined in
