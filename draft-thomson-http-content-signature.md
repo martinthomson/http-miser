@@ -69,8 +69,8 @@ HTTP for operational reasons.  While those intermediaries might be trusted with
 the information that they forward, some clients or servers might desire greater
 assurances about the integrity of the information they receive.
 
-No protection is provided for header fields.  If integrity is important, only
-the information in the message payload can be relied upon.
+The Content-Signature header field does not protect header fields.  If integrity
+is important, only the information in the message payload can be relied upon.
 
 No key management mechanism is defined.  Other specifications are expected to
 describe how recipients determine what credibility is attributed to any given
