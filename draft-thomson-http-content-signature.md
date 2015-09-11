@@ -61,8 +61,8 @@ carries a signature of the payload body of a message.
 # Introduction        {#problems}
 
 The Content-Signature header field carries a signature of the payload body of an
-HTTP message [RFC7230].  This allows for content to be protected from
-modification.
+HTTP message [RFC7230].  This allows a recipient to detect when content is
+modified.
 
 The exchange of high-value messages via intermediaries is often necessary in
 HTTP for operational reasons.  While those intermediaries might be trusted with
