@@ -118,10 +118,10 @@ csig_params = [ parameter *( ";" parameter ) ]
 Each content signature is separated by a comma (,) and is compromised of zero or
 more colon-separated parameters.
 
-The message payload is prefixed with the string "Content-Encryption:" and a
-single zero-valued octet before being passed to the signature algorithm.  This
-discriminator string reduces the chances that a signature is viable for reuse in
-other contexts.
+The message payload is prefixed with the UTF-8 encoded string
+"Content-Signature:" and a single zero-valued octet before being passed to the
+signature algorithm.  This discriminator string reduces the chances that a
+signature is viable for reuse in other contexts.
 
 The following parameters are defined:
 
