@@ -4,8 +4,8 @@
 
 httpbis                                                       M. Thomson
 Internet-Draft                                                   Mozilla
-Intended status: Informational                              July 1, 2015
-Expires: January 2, 2016
+Intended status: Informational                          October 16, 2015
+Expires: April 18, 2016
 
 
                 Content-Signature Header Field for HTTP
@@ -31,7 +31,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 2, 2016.
+   This Internet-Draft will expire on April 18, 2016.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Thomson                  Expires January 2, 2016                [Page 1]
+Thomson                  Expires April 18, 2016                 [Page 1]
 
-Internet-Draft              Content-Signature                  July 2015
+Internet-Draft              Content-Signature               October 2015
 
 
 Table of Contents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Thomson                  Expires January 2, 2016                [Page 2]
+Thomson                  Expires April 18, 2016                 [Page 2]
 
-Internet-Draft              Content-Signature                  July 2015
+Internet-Draft              Content-Signature               October 2015
 
 
 1.2.  Example
@@ -165,9 +165,9 @@ Internet-Draft              Content-Signature                  July 2015
 
 
 
-Thomson                  Expires January 2, 2016                [Page 3]
+Thomson                  Expires April 18, 2016                 [Page 3]
 
-Internet-Draft              Content-Signature                  July 2015
+Internet-Draft              Content-Signature               October 2015
 
 
    Additional header field values can be defined and registered.  The
@@ -221,9 +221,9 @@ Internet-Draft              Content-Signature                  July 2015
 
 
 
-Thomson                  Expires January 2, 2016                [Page 4]
+Thomson                  Expires April 18, 2016                 [Page 4]
 
-Internet-Draft              Content-Signature                  July 2015
+Internet-Draft              Content-Signature               October 2015
 
 
    No replay protection is offered for signatures.  This means that
@@ -277,9 +277,9 @@ Internet-Draft              Content-Signature                  July 2015
 
 
 
-Thomson                  Expires January 2, 2016                [Page 5]
+Thomson                  Expires April 18, 2016                 [Page 5]
 
-Internet-Draft              Content-Signature                  July 2015
+Internet-Draft              Content-Signature               October 2015
 
 
 5.2.1.  keyid
@@ -326,31 +326,41 @@ Internet-Draft              Content-Signature                  July 2015
 
    [I-D.thomson-http-encryption]
               Thomson, M., "Encrypted Content-Encoding for HTTP", draft-
-              thomson-http-encryption-00 (work in progress), May 2015.
+              thomson-http-encryption-01 (work in progress), July 2015.
+
+
+
+
+
+
+Thomson                  Expires April 18, 2016                 [Page 6]
+
+Internet-Draft              Content-Signature               October 2015
+
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119, March 1997.
-
-
-
-Thomson                  Expires January 2, 2016                [Page 6]
-
-Internet-Draft              Content-Signature                  July 2015
-
+              Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/
+              RFC2119, March 1997,
+              <http://www.rfc-editor.org/info/rfc2119>.
 
    [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
-              Encodings", RFC 4648, October 2006.
+              Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
+              <http://www.rfc-editor.org/info/rfc4648>.
 
    [RFC5226]  Narten, T. and H. Alvestrand, "Guidelines for Writing an
               IANA Considerations Section in RFCs", BCP 26, RFC 5226,
-              May 2008.
+              DOI 10.17487/RFC5226, May 2008,
+              <http://www.rfc-editor.org/info/rfc5226>.
 
-   [RFC7230]  Fielding, R. and J. Reschke, "Hypertext Transfer Protocol
-              (HTTP/1.1): Message Syntax and Routing", RFC 7230, June
-              2014.
+   [RFC7230]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
+              Protocol (HTTP/1.1): Message Syntax and Routing", RFC
+              7230, DOI 10.17487/RFC7230, June 2014,
+              <http://www.rfc-editor.org/info/rfc7230>.
 
-   [RFC7231]  Fielding, R. and J. Reschke, "Hypertext Transfer Protocol
-              (HTTP/1.1): Semantics and Content", RFC 7231, June 2014.
+   [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
+              Protocol (HTTP/1.1): Semantics and Content", RFC 7231, DOI
+              10.17487/RFC7231, June 2014,
+              <http://www.rfc-editor.org/info/rfc7231>.
 
    [X.692]    ANSI, "Public Key Cryptography For The Financial Services
               Industry: The Elliptic Curve Digital Signature Algorithm
@@ -379,14 +389,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-
-Thomson                  Expires January 2, 2016                [Page 7]
+Thomson                  Expires April 18, 2016                 [Page 7]
