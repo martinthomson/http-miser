@@ -90,7 +90,7 @@ formatting constraints.
 HTTP/1.1 200 OK
 Date: Wed, 17 Jun 2015 17:14:17 GMT
 Content-Length: 15
-Encryption-Key: keyid=a;
+Crypto-Key: keyid=a;
     p256ecdsa=BDUJCg0PKtFrgI_lc5ar9qBm83cH_QJomSjXYUkIlswX
               KTdYLlJjFEWlIThQ0Y-TFZyBbUinNp-rou13Wve_Y_A
 Content-Signature: keyid=a;
@@ -128,7 +128,7 @@ The following parameters are defined:
 keyid:
 
 : This parameter identifies the key that was used to produce the signature.
-  This could identify a key that is carried in the Encryption-Key header field.
+  This could identify a key that is carried in the Crypto-Key header field.
   This parameter can always be provided together with other parameters.
 
 p256ecdsa:
@@ -167,9 +167,9 @@ Alternatively, explicitly including a public key can allow a verifier to
 correctly identify the key that was used if the `keyid` parameter is not
 sufficient.
 
-This document defines a new parameter for use with the `Encryption-Key` header
-field.  The `p256ecdsa` parameter conveys an uncompressed P-256 public key
-[X.692] that is encoded using URL-safe variant of base-64 [RFC4648].
+This document defines a new parameter for use with the Crypto-Key header field.
+The `p256ecdsa` parameter conveys an uncompressed P-256 public key [X.692] that
+is encoded using URL-safe variant of base-64 [RFC4648].
 
 
 # Security Considerations {#security}
@@ -240,7 +240,7 @@ The initial contents of this registry are:
 * Reference: {{csig}} of this document
 
 
-## The p256ecdsa Parameter for the Encryption-Key Header Field
+## The p256ecdsa Parameter for the Crypto-Key Header Field
 
 The `p256ecdsa` parameter is registered in the "Hypertext Transfer Protocol
 (HTTP) Encryption Parameters" registry established in
