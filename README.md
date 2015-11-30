@@ -1,6 +1,6 @@
 # Content Integrity for HTTP
 
-* [Editor's copy](https://martinthomson.github.io/content-integrity/)
+* [Editor's copy](https://martinthomson.github.io/content-signature/)
 
 
 ## Contributing
