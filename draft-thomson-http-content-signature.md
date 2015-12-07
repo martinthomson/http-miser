@@ -156,11 +156,10 @@ signature in a single pass.
 
 # Describing Signature Keys {#keys}
 
-A message MAY include a signing key.  This can be used to provision trusted
-keys.
+A message MAY include a public key.  This can be used to provision trusted keys.
 
-Providing an encryption key is typically only useful where the provision of the
-key can be attributed a higher level of trust than the signature.  A message
+Providing a signature public key is typically only useful where the provision of
+the key can be attributed a higher level of trust than the signature.  A message
 sent using out-of-band content-encoding {{I-D.reschke-http-oob-encoding}} is one
 situation that benefits from the use of this header field.
 
@@ -193,7 +192,10 @@ responses; and messages can be replayed at different times.
 
 Replay protection can be provided by including information in the message
 payload itself that binds the content to a specific resource, time or any other
-contextual information.
+contextual information.  Since the signature binds messages to the signing key
+pair, the potential for replay depends on the key being trusted outside of the
+immediate context.  Narrowing the applicability of a given key can limit the
+potential for replay.
 
 
 # IANA Considerations {#iana}
@@ -245,7 +247,7 @@ The `p256ecdsa` parameter is registered in the "Hypertext Transfer Protocol
 [I-D.thomson-http-encryption], with the following values:
 
 * Parameter Name: p256ecdsa
-* Purpose: Conveys a signing key for use with the parameter of the same name on
+* Purpose: Conveys a public key for use with the parameter of the same name on
   the `Content-Signature` header field.
 * Reference: {{keys}} of this document
 
