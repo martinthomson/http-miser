@@ -4,8 +4,8 @@
 
 httpbis                                                       M. Thomson
 Internet-Draft                                                   Mozilla
-Intended status: Informational                          December 2, 2015
-Expires: June 4, 2016
+Intended status: Informational                          December 7, 2015
+Expires: June 9, 2016
 
 
                 Content-Signature Header Field for HTTP
@@ -31,7 +31,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 4, 2016.
+   This Internet-Draft will expire on June 9, 2016.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Thomson                   Expires June 4, 2016                  [Page 1]
+Thomson                   Expires June 9, 2016                  [Page 1]
 
 Internet-Draft              Content-Signature              December 2015
 
@@ -81,8 +81,8 @@ Table of Contents
 1.  Introduction
 
    The Content-Signature header field carries a signature of the payload
-   body of an HTTP message [RFC7230].  This allows for content to be
-   protected from modification.
+   body of an HTTP message [RFC7230].  This allows a recipient to detect
+   when content is modified.
 
    The exchange of high-value messages via intermediaries is often
    necessary in HTTP for operational reasons.  While those
@@ -90,9 +90,9 @@ Table of Contents
    forward, some clients or servers might desire greater assurances
    about the integrity of the information they receive.
 
-   No protection is provided for header fields.  If integrity is
-   important, only the information in the message payload can be relied
-   upon.
+   The Content-Signature header field does not protect header fields.
+   If integrity is important, only the information in the message
+   payload can be relied upon.
 
    No key management mechanism is defined.  Other specifications are
    expected to describe how recipients determine what credibility is
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Thomson                   Expires June 4, 2016                  [Page 2]
+Thomson                   Expires June 9, 2016                  [Page 2]
 
 Internet-Draft              Content-Signature              December 2015
 
@@ -131,6 +131,11 @@ Internet-Draft              Content-Signature              December 2015
 
    Hello, World!
 
+   This places the signing key in the same message as the signature.
+   This reduces the value of the signature to that of a checksum; more
+   value is realized when the key is established over a separate
+   channel, such as might happen with [I-D.reschke-http-oob-encoding].
+
 2.  The Content-Signature Header Field
 
    The Content-Signature header field uses the extended ABNF syntax
@@ -143,10 +148,10 @@ Internet-Draft              Content-Signature              December 2015
    Each content signature is separated by a comma (,) and is compromised
    of zero or more colon-separated parameters.
 
-   The message payload is prefixed with the string "Content-Encryption:"
-   and a single zero-valued octet before being passed to the signature
-   algorithm.  This discriminator string reduces the chances that a
-   signature is viable for reuse in other contexts.
+   The message payload is prefixed with the UTF-8 encoded string
+   "Content-Signature:" and a single zero-valued octet before being
+   passed to the signature algorithm.  This discriminator string reduces
+   the chances that a signature is viable for reuse in other contexts.
 
    The following parameters are defined:
 
@@ -157,18 +162,18 @@ Internet-Draft              Content-Signature              December 2015
 
    p256ecdsa:  This parameter contains an ECDSA [X.692] signature on the
       P-256 curve [FIPS186].  The signature is produced using the
+
+
+
+Thomson                   Expires June 9, 2016                  [Page 3]
+
+Internet-Draft              Content-Signature              December 2015
+
+
       SHA-256 hash [FIPS180-2].  The resulting signature is encoded
       using URL-safe variant of base-64 [RFC4648].  No parameters other
       than "keyid" can be specified along with the "p256ecdsa"
       parameter.
-
-
-
-
-Thomson                   Expires June 4, 2016                  [Page 3]
-
-Internet-Draft              Content-Signature              December 2015
-
 
    Additional header field values can be defined and registered.  The
    parameter MUST describe how the signature is produced and encoded.
@@ -186,10 +191,10 @@ Internet-Draft              Content-Signature              December 2015
 
 3.  Describing Signature Keys
 
-   A message MAY include a signing key.  This can be used to provision
+   A message MAY include a public key.  This can be used to provision
    trusted keys.
 
-   Providing an encryption key is typically only useful where the
+   Providing a signature public key is typically only useful where the
    provision of the key can be attributed a higher level of trust than
    the signature.  A message sent using out-of-band content-encoding
    [I-D.reschke-http-oob-encoding] is one situation that benefits from
@@ -213,18 +218,17 @@ Internet-Draft              Content-Signature              December 2015
    This scheme does not authenticate header fields, or other request or
    response metadata.  A recipient of a signed payload needs to be
    especially careful that decisions that rely on authenticating the
-   payload do not take any unauthenticated material as input.  In
-   particular, the request URI and the "Content-Type" header field are
-   not authenticated by this scheme.
 
 
 
-
-
-Thomson                   Expires June 4, 2016                  [Page 4]
+Thomson                   Expires June 9, 2016                  [Page 4]
 
 Internet-Draft              Content-Signature              December 2015
 
+
+   payload do not take any unauthenticated material as input.  In
+   particular, the request URI and the "Content-Type" header field are
+   not authenticated by this scheme.
 
    No replay protection is offered for signatures.  This means that
    valid messages can be captured and replayed.  Since there is no
@@ -235,7 +239,10 @@ Internet-Draft              Content-Signature              December 2015
 
    Replay protection can be provided by including information in the
    message payload itself that binds the content to a specific resource,
-   time or any other contextual information.
+   time or any other contextual information.  Since the signature binds
+   messages to the signing key pair, the potential for replay depends on
+   the key being trusted outside of the immediate context.  Narrowing
+   the applicability of a given key can limit the potential for replay.
 
 5.  IANA Considerations
 
@@ -267,20 +274,18 @@ Internet-Draft              Content-Signature              December 2015
 
    o  Purpose: A brief description of the purpose of the parameter.
 
+
+
+
+Thomson                   Expires June 9, 2016                  [Page 5]
+
+Internet-Draft              Content-Signature              December 2015
+
+
    o  Reference: A reference to a specification that defines the
       semantics of the parameter.
 
    The initial contents of this registry are:
-
-
-
-
-
-
-Thomson                   Expires June 4, 2016                  [Page 5]
-
-Internet-Draft              Content-Signature              December 2015
-
 
 5.2.1.  keyid
 
@@ -307,7 +312,7 @@ Internet-Draft              Content-Signature              December 2015
 
    o  Parameter Name: p256ecdsa
 
-   o  Purpose: Conveys a signing key for use with the parameter of the
+   o  Purpose: Conveys a public key for use with the parameter of the
       same name on the "Content-Signature" header field.
 
    o  Reference: Section 3 of this document
@@ -324,19 +329,19 @@ Internet-Draft              Content-Signature              December 2015
               "Digital Signature Standard (DSS)", NIST PUB 186-4 , July
               2013.
 
+
+
+
+
+Thomson                   Expires June 9, 2016                  [Page 6]
+
+Internet-Draft              Content-Signature              December 2015
+
+
    [I-D.thomson-http-encryption]
               Thomson, M., "Encrypted Content-Encoding for HTTP", draft-
               thomson-http-encryption-02 (work in progress), October
               2015.
-
-
-
-
-
-Thomson                   Expires June 4, 2016                  [Page 6]
-
-Internet-Draft              Content-Signature              December 2015
-
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -384,9 +389,4 @@ Author's Address
 
 
 
-
-
-
-
-
-Thomson                   Expires June 4, 2016                  [Page 7]
+Thomson                   Expires June 9, 2016                  [Page 7]

@@ -372,7 +372,7 @@
 	  }
   /*]]>*/
   </style>
-  <style type="text/css">
+<style type="text/css">
 @viewport {
   zoom: 1.0;
   width: extend-to-zoom;
@@ -449,7 +449,7 @@ ul.toc a:first-child {
   display: inline-block;
   min-width: 1.2em;
 }
-  </style>
+</style>
 
   <link href="#rfc.toc" rel="Contents"/>
 <link href="#rfc.section.1" rel="Chapter" title="1 Introduction"/>
@@ -475,7 +475,7 @@ ul.toc a:first-child {
 
   <meta name="dct.creator" content="Thomson, M." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-thomson-http-content-signature-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2015-12-2" />
+  <meta name="dct.issued" scheme="ISO8601" content="2015-12-7" />
   <meta name="dct.abstract" content="A Content-Signature header field is defined for use in HTTP.  This header field carries a signature of the payload body of a message." />
   <meta name="description" content="A Content-Signature header field is defined for use in HTTP.  This header field carries a signature of the payload body of a message." />
 
@@ -497,10 +497,10 @@ ul.toc a:first-child {
 </tr>
 <tr>
   <td class="left">Intended status: Informational</td>
-  <td class="right">December 2, 2015</td>
+  <td class="right">December 7, 2015</td>
 </tr>
 <tr>
-  <td class="left">Expires: June 4, 2016</td>
+  <td class="left">Expires: June 9, 2016</td>
   <td class="right"></td>
 </tr>
 
@@ -521,7 +521,7 @@ ul.toc a:first-child {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on June 4, 2016.</p>
+<p>This Internet-Draft will expire on June 9, 2016.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -554,9 +554,9 @@ ul.toc a:first-child {
   </ul>
 
   <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#problems" id="problems">Introduction</a></h1>
-<p id="rfc.section.1.p.1">The Content-Signature header field carries a signature of the payload body of an HTTP message <a href="#RFC7230">[RFC7230]</a>.  This allows for content to be protected from modification.</p>
+<p id="rfc.section.1.p.1">The Content-Signature header field carries a signature of the payload body of an HTTP message <a href="#RFC7230">[RFC7230]</a>.  This allows a recipient to detect when content is modified.</p>
 <p id="rfc.section.1.p.2">The exchange of high-value messages via intermediaries is often necessary in HTTP for operational reasons.  While those intermediaries might be trusted with the information that they forward, some clients or servers might desire greater assurances about the integrity of the information they receive.</p>
-<p id="rfc.section.1.p.3">No protection is provided for header fields.  If integrity is important, only the information in the message payload can be relied upon.</p>
+<p id="rfc.section.1.p.3">The Content-Signature header field does not protect header fields.  If integrity is important, only the information in the message payload can be relied upon.</p>
 <p id="rfc.section.1.p.4">No key management mechanism is defined.  Other specifications are expected to describe how recipients determine what credibility is attributed to any given signature key.</p>
 <h1 id="rfc.section.1.1"><a href="#rfc.section.1.1">1.1.</a> <a href="#Terminology" id="Terminology">Terminology</a></h1>
 <p id="rfc.section.1.1.p.1">RFC 2119 <a href="#RFC2119">[RFC2119]</a> defines the terms MUST, SHOULD, and MAY.</p>
@@ -575,6 +575,7 @@ Content-Signature: keyid=a;
 
 Hello, World!
 </pre>
+<p id="rfc.section.1.2.p.2">This places the signing key in the same message as the signature. This reduces the value of the signature to that of a checksum; more value is realized when the key is established over a separate channel, such as might happen with <a href="#I-D.reschke-http-oob-encoding">[I-D.reschke-http-oob-encoding]</a>.</p>
 <h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#csig" id="csig">The Content-Signature Header Field</a></h1>
 <p id="rfc.section.2.p.1">The Content-Signature header field uses the extended ABNF syntax defined in Section 1.2 of <a href="#RFC7230">[RFC7230]</a> and the <samp>parameter</samp> rule from <a href="#RFC7231">[RFC7231]</a>.</p>
 <pre>
@@ -582,7 +583,7 @@ Content-Signature = 1#csig_params
 csig_params = [ parameter *( ";" parameter ) ]
 </pre>
 <p id="rfc.section.2.p.2">Each content signature is separated by a comma (,) and is compromised of zero or more colon-separated parameters.</p>
-<p id="rfc.section.2.p.3">The message payload is prefixed with the string &#8220;Content-Encryption:&#8221; and a single zero-valued octet before being passed to the signature algorithm.  This discriminator string reduces the chances that a signature is viable for reuse in other contexts.</p>
+<p id="rfc.section.2.p.3">The message payload is prefixed with the UTF-8 encoded string &#8220;Content-Signature:&#8221; and a single zero-valued octet before being passed to the signature algorithm.  This discriminator string reduces the chances that a signature is viable for reuse in other contexts.</p>
 <p id="rfc.section.2.p.4">The following parameters are defined:</p>
 <p/>
 
@@ -596,15 +597,15 @@ csig_params = [ parameter *( ";" parameter ) ]
 <p id="rfc.section.2.p.7">Though the parameter defined in this document do not contain any optional or parameterized features, new signature algorithms MAY use additional parameters for conveying information about optional features.  The definition of new parameters SHOULD describe what parameters can be combined with that parameter and the resulting semantics.</p>
 <p id="rfc.section.2.p.8">The Content-Signature header field might be most efficiently produced as a trailer field.  This allows for the production of the message body and the signature in a single pass.</p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#keys" id="keys">Describing Signature Keys</a></h1>
-<p id="rfc.section.3.p.1">A message MAY include a signing key.  This can be used to provision trusted keys.</p>
-<p id="rfc.section.3.p.2">Providing an encryption key is typically only useful where the provision of the key can be attributed a higher level of trust than the signature.  A message sent using out-of-band content-encoding <a href="#I-D.reschke-http-oob-encoding">[I-D.reschke-http-oob-encoding]</a> is one situation that benefits from the use of this header field.</p>
+<p id="rfc.section.3.p.1">A message MAY include a public key.  This can be used to provision trusted keys.</p>
+<p id="rfc.section.3.p.2">Providing a signature public key is typically only useful where the provision of the key can be attributed a higher level of trust than the signature.  A message sent using out-of-band content-encoding <a href="#I-D.reschke-http-oob-encoding">[I-D.reschke-http-oob-encoding]</a> is one situation that benefits from the use of this header field.</p>
 <p id="rfc.section.3.p.3">Alternatively, explicitly including a public key can allow a verifier to correctly identify the key that was used if the <samp>keyid</samp> parameter is not sufficient.</p>
 <p id="rfc.section.3.p.4">This document defines a new parameter for use with the <samp>Encryption-Key</samp> header field.  The <samp>p256ecdsa</samp> parameter conveys an uncompressed P-256 public key <a href="#X.692">[X.692]</a> that is encoded using URL-safe variant of base-64 <a href="#RFC4648">[RFC4648]</a>.</p>
 <h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#security" id="security">Security Considerations</a></h1>
 <p id="rfc.section.4.p.1">Determining whether a signature is valid is only a small part of authenticating a message. This document doesn&#8217;t describe a complete solution for identifying which signing keys are accepted.</p>
 <p id="rfc.section.4.p.2">This scheme does not authenticate header fields, or other request or response metadata.  A recipient of a signed payload needs to be especially careful that decisions that rely on authenticating the payload do not take any unauthenticated material as input.  In particular, the request URI and the <samp>Content-Type</samp> header field are not authenticated by this scheme.</p>
 <p id="rfc.section.4.p.3">No replay protection is offered for signatures.  This means that valid messages can be captured and replayed.  Since there is no binding between the identity of a resource and the signature, the content of a message can be replayed for a request or response to a different resource; requests can be replayed as responses; and messages can be replayed at different times.</p>
-<p id="rfc.section.4.p.4">Replay protection can be provided by including information in the message payload itself that binds the content to a specific resource, time or any other contextual information.</p>
+<p id="rfc.section.4.p.4">Replay protection can be provided by including information in the message payload itself that binds the content to a specific resource, time or any other contextual information.  Since the signature binds messages to the signing key pair, the potential for replay depends on the key being trusted outside of the immediate context.  Narrowing the applicability of a given key can limit the potential for replay.</p>
 <h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#iana" id="iana">IANA Considerations</a></h1>
 <h1 id="rfc.section.5.1"><a href="#rfc.section.5.1">5.1.</a> <a href="#content-signature-header-field" id="content-signature-header-field">Content-Signature Header Field</a></h1>
 <p id="rfc.section.5.1.p.1">This memo registers the <samp>Content-Signature</samp> HTTP header field in the Permanent Message Header Registry, as detailed in <a href="#csig">Section 2</a>.</p>
@@ -649,7 +650,7 @@ csig_params = [ parameter *( ";" parameter ) ]
 
 <ul>
   <li>Parameter Name: p256ecdsa</li>
-  <li>Purpose: Conveys a signing key for use with the parameter of the same name on the <samp>Content-Signature</samp> header field.</li>
+  <li>Purpose: Conveys a public key for use with the parameter of the same name on the <samp>Content-Signature</samp> header field.</li>
   <li>Reference: <a href="#keys">Section 3</a> of this document</li>
 </ul>
 <h1 id="rfc.references"><a href="#rfc.references">6.</a> References</h1>
