@@ -134,10 +134,10 @@ keyid:
 p256ecdsa:
 
 : This parameter contains an ECDSA [X.692] signature on the P-256 curve
-  [FIPS186].  The signature is produced using the SHA-256 hash [FIPS180-2].  The
-  resulting signature is encoded using URL-safe variant of base-64 [RFC4648].
-  No parameters other than `keyid` can be specified along with the `p256ecdsa`
-  parameter.
+  [FIPS186].  The signature is produced using the SHA-256 hash [FIPS180-2]. The
+  resulting signature is encoded using URL-safe variant of base-64 [RFC4648]
+  without padding. No parameters other than `keyid` can be specified along with
+  the `p256ecdsa` parameter.
 
 
 Additional header field values can be defined and registered.  The parameter
