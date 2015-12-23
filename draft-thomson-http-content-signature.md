@@ -11,7 +11,7 @@ workgroup: httpbis
 keyword: Internet-Draft
 
 stand_alone: yes
-pi: [toc, sortrefs, symrefs]
+pi: [toc, sortrefs, symrefs, docmapping]
 
 author:
  -
@@ -61,16 +61,16 @@ carries a signature of the payload body of a message.
 # Introduction        {#problems}
 
 The Content-Signature header field carries a signature of the payload body of an
-HTTP message [RFC7230].  This allows for content to be protected from
-modification.
+HTTP message [RFC7230].  This allows a recipient to detect when content is
+modified.
 
 The exchange of high-value messages via intermediaries is often necessary in
 HTTP for operational reasons.  While those intermediaries might be trusted with
 the information that they forward, some clients or servers might desire greater
 assurances about the integrity of the information they receive.
 
-No protection is provided for header fields.  If integrity is important, only
-the information in the message payload can be relied upon.
+The Content-Signature header field does not protect header fields.  If integrity
+is important, only the information in the message payload can be relied upon.
 
 No key management mechanism is defined.  Other specifications are expected to
 describe how recipients determine what credibility is attributed to any given
@@ -100,6 +100,11 @@ Content-Signature: keyid=a;
 Hello, World!
 ~~~
 
+This places the signing key in the same message as the signature. This reduces
+the value of the signature to that of a checksum; more value is realized when
+the key is established over a separate channel, such as might happen with
+[I-D.reschke-http-oob-encoding].
+
 # The Content-Signature Header Field {#csig}
 
 The Content-Signature header field uses the extended ABNF syntax defined in
@@ -113,10 +118,10 @@ csig_params = [ parameter *( ";" parameter ) ]
 Each content signature is separated by a comma (,) and is compromised of zero or
 more colon-separated parameters.
 
-The message payload is prefixed with the string "Content-Encryption:" and a
-single zero-valued octet before being passed to the signature algorithm.  This
-discriminator string reduces the chances that a signature is viable for reuse in
-other contexts.
+The message payload is prefixed with the UTF-8 encoded string
+"Content-Signature:" and a single zero-valued octet before being passed to the
+signature algorithm.  This discriminator string reduces the chances that a
+signature is viable for reuse in other contexts.
 
 The following parameters are defined:
 
@@ -159,11 +164,10 @@ signature in a single pass.
 
 # Describing Signature Keys {#keys}
 
-A message MAY include a signing key.  This can be used to provision trusted
-keys.
+A message MAY include a public key.  This can be used to provision trusted keys.
 
-Providing an encryption key is typically only useful where the provision of the
-key can be attributed a higher level of trust than the signature.  A message
+Providing a signature public key is typically only useful where the provision of
+the key can be attributed a higher level of trust than the signature.  A message
 sent using out-of-band content-encoding {{I-D.reschke-http-oob-encoding}} is one
 situation that benefits from the use of this header field.
 
@@ -198,7 +202,10 @@ responses; and messages can be replayed at different times.
 
 Replay protection can be provided by including information in the message
 payload itself that binds the content to a specific resource, time or any other
-contextual information.
+contextual information.  Since the signature binds messages to the signing key
+pair, the potential for replay depends on the key being trusted outside of the
+immediate context.  Narrowing the applicability of a given key can limit the
+potential for replay.
 
 
 # IANA Considerations {#iana}
@@ -256,7 +263,7 @@ The `p256ecdsa` parameter is registered in the "Hypertext Transfer Protocol
 [I-D.thomson-http-encryption], with the following values:
 
 * Parameter Name: p256ecdsa
-* Purpose: Conveys a signing key for use with the parameter of the same name on
+* Purpose: Conveys a public key for use with the parameter of the same name on
   the `Content-Signature` header field.
 * Reference: {{keys}} of this document
 
