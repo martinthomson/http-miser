@@ -139,6 +139,14 @@ p256ecdsa:
   without padding. No parameters other than `keyid` can be specified along with
   the `p256ecdsa` parameter.
 
+p384ecdsa:
+
+: This parameter contains an ECDSA [X.692] signature on the P-384 curve
+  [FIPS186].  The signature is produced using the SHA-384 hash [FIPS180-2].  The
+  resulting signature is encoded using URL-safe variant of base-64 [RFC4648].
+  No parameters other than `keyid` can be specified along with the `p384ecdsa`
+  parameter.
+
 
 Additional header field values can be defined and registered.  The parameter
 MUST describe how the signature is produced and encoded.
@@ -167,9 +175,11 @@ Alternatively, explicitly including a public key can allow a verifier to
 correctly identify the key that was used if the `keyid` parameter is not
 sufficient.
 
-This document defines a new parameter for use with the `Encryption-Key` header
+This document defines two new parameters for use with the `Encryption-Key` header
 field.  The `p256ecdsa` parameter conveys an uncompressed P-256 public key
-[X.692] that is encoded using URL-safe variant of base-64 [RFC4648].
+[X.692] that is encoded using URL-safe variant of base-64 [RFC4648]. The `p384ecdsa`
+parameter conveys an uncompressed P-384 public key [X.692] that is encoded using
+URL-safe variant of base-64 [RFC4648].
 
 
 # Security Considerations {#security}
@@ -239,6 +249,12 @@ The initial contents of this registry are:
   {{csig}} of this document.
 * Reference: {{csig}} of this document
 
+### p384ecdsa
+
+* Parameter Name: p384ecdsa
+* Purpose: Conveys a signature using P-384, ECDSA and SHA-384 as described in
+  {{csig}} of this document.
+* Reference: {{csig}} of this document
 
 ## The p256ecdsa Parameter for the Encryption-Key Header Field
 
@@ -248,6 +264,17 @@ The `p256ecdsa` parameter is registered in the "Hypertext Transfer Protocol
 
 * Parameter Name: p256ecdsa
 * Purpose: Conveys a public key for use with the parameter of the same name on
+  the `Content-Signature` header field.
+* Reference: {{keys}} of this document
+
+## The p384ecdsa Parameter for the Encryption-Key Header Field
+
+The `p384ecdsa` parameter is registered in the "Hypertext Transfer Protocol
+(HTTP) Encryption Parameters" registry established in
+[I-D.thomson-http-encryption], with the following values:
+
+* Parameter Name: p384ecdsa
+* Purpose: Conveys a signing key for use with the parameter of the same name on
   the `Content-Signature` header field.
 * Reference: {{keys}} of this document
 
