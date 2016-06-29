@@ -62,7 +62,7 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   2
-     1.2.  Example . . . . . . . . . . . . . . . . . . . . . . . . .   3
+     1.2.  Example . . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  The Content-Signature Header Field  . . . . . . . . . . . . .   3
    3.  Describing Signature Keys . . . . . . . . . . . . . . . . . .   4
    4.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
@@ -71,8 +71,7 @@ Table of Contents
      5.2.  Content-Signature Parameter Registry  . . . . . . . . . .   5
        5.2.1.  keyid . . . . . . . . . . . . . . . . . . . . . . . .   6
        5.2.2.  p256ecdsa . . . . . . . . . . . . . . . . . . . . . .   6
-     5.3.  The p256ecdsa Parameter for the Encryption-Key Header
-           Field . . . . . . . . . . . . . . . . . . . . . . . . . .   6
+     5.3.  The p256ecdsa Parameter for the Crypto-Key Header Field .   6
    6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   6
      6.1.  Normative References  . . . . . . . . . . . . . . . . . .   6
      6.2.  Informative References  . . . . . . . . . . . . . . . . .   7
@@ -102,9 +101,10 @@ Table of Contents
 
    RFC 2119 [RFC2119] defines the terms MUST, SHOULD, and MAY.
 
+1.2.  Example
 
-
-
+   The following HTTP/1.1 response is signed.  Line wrapping is added to
+   fit formatting constraints.
 
 
 
@@ -114,15 +114,10 @@ Thomson                 Expires December 31, 2016               [Page 2]
 Internet-Draft              Content-Signature                       2015
 
 
-1.2.  Example
-
-   The following HTTP/1.1 response is signed.  Line wrapping is added to
-   fit formatting constraints.
-
    HTTP/1.1 200 OK
    Date: Wed, 17 Jun 2015 17:14:17 GMT
    Content-Length: 15
-   Encryption-Key: keyid=a;
+   Crypto-Key: keyid=a;
        p256ecdsa=BDUJCg0PKtFrgI_lc5ar9qBm83cH_QJomSjXYUkIlswX
                  KTdYLlJjFEWlIThQ0Y-TFZyBbUinNp-rou13Wve_Y_A
    Content-Signature: keyid=a;
@@ -157,11 +152,16 @@ Internet-Draft              Content-Signature                       2015
 
    keyid:  This parameter identifies the key that was used to produce
       the signature.  This could identify a key that is carried in the
-      Encryption-Key header field.  This parameter can always be
-      provided together with other parameters.
+      Crypto-Key header field.  This parameter can always be provided
+      together with other parameters.
 
    p256ecdsa:  This parameter contains an ECDSA [X.692] signature on the
       P-256 curve [FIPS186].  The signature is produced using the
+      SHA-256 hash [FIPS180-2].  The resulting signature is encoded
+      using URL-safe variant of base-64 [RFC4648] without padding.  No
+      parameters other than "keyid" can be specified along with the
+      "p256ecdsa" parameter.
+
 
 
 
@@ -169,11 +169,6 @@ Thomson                 Expires December 31, 2016               [Page 3]
 
 Internet-Draft              Content-Signature                       2015
 
-
-      SHA-256 hash [FIPS180-2].  The resulting signature is encoded
-      using URL-safe variant of base-64 [RFC4648] without padding.  No
-      parameters other than "keyid" can be specified along with the
-      "p256ecdsa" parameter.
 
    Additional header field values can be defined and registered.  The
    parameter MUST describe how the signature is produced and encoded.
@@ -204,8 +199,8 @@ Internet-Draft              Content-Signature                       2015
    to correctly identify the key that was used if the "keyid" parameter
    is not sufficient.
 
-   This document defines a new parameter for use with the "Encryption-
-   Key" header field.  The "p256ecdsa" parameter conveys an uncompressed
+   This document defines a new parameter for use with the Crypto-Key
+   header field.  The "p256ecdsa" parameter conveys an uncompressed
    P-256 public key [X.692] that is encoded using URL-safe variant of
    base-64 [RFC4648].
 
@@ -218,6 +213,11 @@ Internet-Draft              Content-Signature                       2015
    This scheme does not authenticate header fields, or other request or
    response metadata.  A recipient of a signed payload needs to be
    especially careful that decisions that rely on authenticating the
+   payload do not take any unauthenticated material as input.  In
+   particular, the request URI and the "Content-Type" header field are
+   not authenticated by this scheme.
+
+
 
 
 
@@ -225,10 +225,6 @@ Thomson                 Expires December 31, 2016               [Page 4]
 
 Internet-Draft              Content-Signature                       2015
 
-
-   payload do not take any unauthenticated material as input.  In
-   particular, the request URI and the "Content-Type" header field are
-   not authenticated by this scheme.
 
    No replay protection is offered for signatures.  This means that
    valid messages can be captured and replayed.  Since there is no
@@ -274,6 +270,10 @@ Internet-Draft              Content-Signature                       2015
 
    o  Purpose: A brief description of the purpose of the parameter.
 
+   o  Reference: A reference to a specification that defines the
+      semantics of the parameter.
+
+   The initial contents of this registry are:
 
 
 
@@ -281,11 +281,6 @@ Thomson                 Expires December 31, 2016               [Page 5]
 
 Internet-Draft              Content-Signature                       2015
 
-
-   o  Reference: A reference to a specification that defines the
-      semantics of the parameter.
-
-   The initial contents of this registry are:
 
 5.2.1.  keyid
 
@@ -304,7 +299,7 @@ Internet-Draft              Content-Signature                       2015
 
    o  Reference: Section 2 of this document
 
-5.3.  The p256ecdsa Parameter for the Encryption-Key Header Field
+5.3.  The p256ecdsa Parameter for the Crypto-Key Header Field
 
    The "p256ecdsa" parameter is registered in the "Hypertext Transfer
    Protocol (HTTP) Encryption Parameters" registry established in
@@ -329,6 +324,11 @@ Internet-Draft              Content-Signature                       2015
               "Digital Signature Standard (DSS)", NIST PUB 186-4 , July
               2013.
 
+   [I-D.thomson-http-encryption]
+              Thomson, M., "Encrypted Content-Encoding for HTTP", draft-
+              thomson-http-encryption-02 (work in progress), October
+              2015.
+
 
 
 
@@ -337,11 +337,6 @@ Thomson                 Expires December 31, 2016               [Page 6]
 
 Internet-Draft              Content-Signature                       2015
 
-
-   [I-D.thomson-http-encryption]
-              Thomson, M., "Encrypted Content-Encoding for HTTP", draft-
-              thomson-http-encryption-02 (work in progress), October
-              2015.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -384,6 +379,11 @@ Author's Address
    Mozilla
 
    Email: martin.thomson@gmail.com
+
+
+
+
+
 
 
 

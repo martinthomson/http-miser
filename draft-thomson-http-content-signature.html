@@ -279,7 +279,7 @@ li, p {
 <link href="#rfc.section.5.2" rel="Chapter" title="5.2 Content-Signature Parameter Registry"/>
 <link href="#rfc.section.5.2.1" rel="Chapter" title="5.2.1 keyid"/>
 <link href="#rfc.section.5.2.2" rel="Chapter" title="5.2.2 p256ecdsa"/>
-<link href="#rfc.section.5.3" rel="Chapter" title="5.3 The p256ecdsa Parameter for the Encryption-Key Header Field"/>
+<link href="#rfc.section.5.3" rel="Chapter" title="5.3 The p256ecdsa Parameter for the Crypto-Key Header Field"/>
 <link href="#rfc.references" rel="Chapter" title="6 References"/>
 <link href="#rfc.references.1" rel="Chapter" title="6.1 Normative References"/>
 <link href="#rfc.references.2" rel="Chapter" title="6.2 Informative References"/>
@@ -359,7 +359,7 @@ li, p {
 <li>5.2.   <a href="#rfc.section.5.2">Content-Signature Parameter Registry</a></li>
 <ul><li>5.2.1.   <a href="#rfc.section.5.2.1">keyid</a></li>
 <li>5.2.2.   <a href="#rfc.section.5.2.2">p256ecdsa</a></li>
-</ul><li>5.3.   <a href="#rfc.section.5.3">The p256ecdsa Parameter for the Encryption-Key Header Field</a></li>
+</ul><li>5.3.   <a href="#rfc.section.5.3">The p256ecdsa Parameter for the Crypto-Key Header Field</a></li>
 </ul><li>6.   <a href="#rfc.references">References</a></li>
 <ul><li>6.1.   <a href="#rfc.references.1">Normative References</a></li>
 <li>6.2.   <a href="#rfc.references.2">Informative References</a></li>
@@ -381,7 +381,7 @@ li, p {
 HTTP/1.1 200 OK
 Date: Wed, 17 Jun 2015 17:14:17 GMT
 Content-Length: 15
-Encryption-Key: keyid=a;
+Crypto-Key: keyid=a;
     p256ecdsa=BDUJCg0PKtFrgI_lc5ar9qBm83cH_QJomSjXYUkIlswX
               KTdYLlJjFEWlIThQ0Y-TFZyBbUinNp-rou13Wve_Y_A
 Content-Signature: keyid=a;
@@ -404,7 +404,7 @@ csig_params = [ parameter *( ";" parameter ) ]
 
 <dl>
   <dt>keyid:</dt>
-  <dd style="margin-left: 8">This parameter identifies the key that was used to produce the signature.  This could identify a key that is carried in the Encryption-Key header field.  This parameter can always be provided together with other parameters.</dd>
+  <dd style="margin-left: 8">This parameter identifies the key that was used to produce the signature.  This could identify a key that is carried in the Crypto-Key header field.  This parameter can always be provided together with other parameters.</dd>
   <dt>p256ecdsa:</dt>
   <dd style="margin-left: 8">This parameter contains an ECDSA <a href="#X.692">[X.692]</a> signature on the P-256 curve <a href="#FIPS186">[FIPS186]</a>.  The signature is produced using the SHA-256 hash <a href="#FIPS180-2">[FIPS180-2]</a>. The resulting signature is encoded using URL-safe variant of base-64 <a href="#RFC4648">[RFC4648]</a> without padding. No parameters other than <samp>keyid</samp> can be specified along with the <samp>p256ecdsa</samp> parameter.</dd>
 </dl>
@@ -415,7 +415,7 @@ csig_params = [ parameter *( ";" parameter ) ]
 <p id="rfc.section.3.p.1">A message MAY include a public key.  This can be used to provision trusted keys.</p>
 <p id="rfc.section.3.p.2">Providing a signature public key is typically only useful where the provision of the key can be attributed a higher level of trust than the signature.  A message sent using out-of-band content-encoding <a href="#I-D.reschke-http-oob-encoding">[I-D.reschke-http-oob-encoding]</a> is one situation that benefits from the use of this header field.</p>
 <p id="rfc.section.3.p.3">Alternatively, explicitly including a public key can allow a verifier to correctly identify the key that was used if the <samp>keyid</samp> parameter is not sufficient.</p>
-<p id="rfc.section.3.p.4">This document defines a new parameter for use with the <samp>Encryption-Key</samp> header field.  The <samp>p256ecdsa</samp> parameter conveys an uncompressed P-256 public key <a href="#X.692">[X.692]</a> that is encoded using URL-safe variant of base-64 <a href="#RFC4648">[RFC4648]</a>.</p>
+<p id="rfc.section.3.p.4">This document defines a new parameter for use with the Crypto-Key header field.  The <samp>p256ecdsa</samp> parameter conveys an uncompressed P-256 public key <a href="#X.692">[X.692]</a> that is encoded using URL-safe variant of base-64 <a href="#RFC4648">[RFC4648]</a>.</p>
 <h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#security" id="security">Security Considerations</a></h1>
 <p id="rfc.section.4.p.1">Determining whether a signature is valid is only a small part of authenticating a message. This document doesn&#8217;t describe a complete solution for identifying which signing keys are accepted.</p>
 <p id="rfc.section.4.p.2">This scheme does not authenticate header fields, or other request or response metadata.  A recipient of a signed payload needs to be especially careful that decisions that rely on authenticating the payload do not take any unauthenticated material as input.  In particular, the request URI and the <samp>Content-Type</samp> header field are not authenticated by this scheme.</p>
@@ -459,7 +459,7 @@ csig_params = [ parameter *( ";" parameter ) ]
   <li>Purpose: Conveys a signature using P-256, ECDSA and SHA-256 as described in <a href="#csig">Section 2</a> of this document.</li>
   <li>Reference: <a href="#csig">Section 2</a> of this document</li>
 </ul>
-<h2 id="rfc.section.5.3"><a href="#rfc.section.5.3">5.3.</a> <a href="#the-p256ecdsa-parameter-for-the-encryption-key-header-field" id="the-p256ecdsa-parameter-for-the-encryption-key-header-field">The p256ecdsa Parameter for the Encryption-Key Header Field</a></h2>
+<h2 id="rfc.section.5.3"><a href="#rfc.section.5.3">5.3.</a> <a href="#the-p256ecdsa-parameter-for-the-crypto-key-header-field" id="the-p256ecdsa-parameter-for-the-crypto-key-header-field">The p256ecdsa Parameter for the Crypto-Key Header Field</a></h2>
 <p id="rfc.section.5.3.p.1">The <samp>p256ecdsa</samp> parameter is registered in the &#8220;Hypertext Transfer Protocol (HTTP) Encryption Parameters&#8221; registry established in <a href="#I-D.thomson-http-encryption">[I-D.thomson-http-encryption]</a>, with the following values:</p>
 <p/>
 
