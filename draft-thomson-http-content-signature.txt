@@ -4,8 +4,8 @@
 
 httpbis                                                       M. Thomson
 Internet-Draft                                                   Mozilla
-Intended status: Informational                         December 23, 2015
-Expires: June 25, 2016
+Intended status: Informational                                      2015
+Expires: December 31, 2016
 
 
                 Content-Signature Header Field for HTTP
@@ -31,7 +31,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 25, 2016.
+   This Internet-Draft will expire on December 31, 2016.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Thomson                   Expires June 25, 2016                 [Page 1]
+Thomson                 Expires December 31, 2016               [Page 1]
 
-Internet-Draft              Content-Signature              December 2015
+Internet-Draft              Content-Signature                       2015
 
 
 Table of Contents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Thomson                   Expires June 25, 2016                 [Page 2]
+Thomson                 Expires December 31, 2016               [Page 2]
 
-Internet-Draft              Content-Signature              December 2015
+Internet-Draft              Content-Signature                       2015
 
 
 1.2.  Example
@@ -165,9 +165,9 @@ Internet-Draft              Content-Signature              December 2015
 
 
 
-Thomson                   Expires June 25, 2016                 [Page 3]
+Thomson                 Expires December 31, 2016               [Page 3]
 
-Internet-Draft              Content-Signature              December 2015
+Internet-Draft              Content-Signature                       2015
 
 
       SHA-256 hash [FIPS180-2].  The resulting signature is encoded
@@ -221,9 +221,9 @@ Internet-Draft              Content-Signature              December 2015
 
 
 
-Thomson                   Expires June 25, 2016                 [Page 4]
+Thomson                 Expires December 31, 2016               [Page 4]
 
-Internet-Draft              Content-Signature              December 2015
+Internet-Draft              Content-Signature                       2015
 
 
    payload do not take any unauthenticated material as input.  In
@@ -277,9 +277,9 @@ Internet-Draft              Content-Signature              December 2015
 
 
 
-Thomson                   Expires June 25, 2016                 [Page 5]
+Thomson                 Expires December 31, 2016               [Page 5]
 
-Internet-Draft              Content-Signature              December 2015
+Internet-Draft              Content-Signature                       2015
 
 
    o  Reference: A reference to a specification that defines the
@@ -333,9 +333,9 @@ Internet-Draft              Content-Signature              December 2015
 
 
 
-Thomson                   Expires June 25, 2016                 [Page 6]
+Thomson                 Expires December 31, 2016               [Page 6]
 
-Internet-Draft              Content-Signature              December 2015
+Internet-Draft              Content-Signature                       2015
 
 
    [I-D.thomson-http-encryption]
@@ -375,8 +375,8 @@ Internet-Draft              Content-Signature              December 2015
 
    [I-D.reschke-http-oob-encoding]
               Reschke, J. and S. Loreto, "'Out-Of-Band' Content Coding
-              for HTTP", draft-reschke-http-oob-encoding-01 (work in
-              progress), October 2015.
+              for HTTP", draft-reschke-http-oob-encoding-06 (work in
+              progress), April 2016.
 
 Author's Address
 
@@ -389,4 +389,4 @@ Author's Address
 
 
 
-Thomson                   Expires June 25, 2016                 [Page 7]
+Thomson                 Expires December 31, 2016               [Page 7]
