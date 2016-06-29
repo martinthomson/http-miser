@@ -21,10 +21,6 @@ author:
     email: martin.thomson@gmail.com
 
 normative:
-  RFC2119:
-  RFC4648:
-  RFC7230:
-  RFC7231:
   X9.62:
      title: "Public Key Cryptography For The Financial Services Industry: The Elliptic Curve Digital Signature Algorithm (ECDSA)"
      author:
@@ -43,12 +39,8 @@ normative:
       name: NIST
       ins: National Institute of Standards and Technology, U.S. Department of Commerce
     date: 2002-08
-  I-D.thomson-http-mice:
-  I-D.thomson-http-encryption:
 
 informative:
-  I-D.ietf-httpbis-encryption-encoding:
-  I-D.reschke-http-oob-encoding:
   SRI:
     title: "Subresource Integrity"
     author:
@@ -79,16 +71,16 @@ client is prepared to accept the risk of truncation.
 # Introduction {#problems}
 
 A scheme for providing integrity for the content of HTTP messages is described
-in [I-D.thomson-http-mice].  That scheme permits a recipient to process the
+in {{!I-D.thomson-http-mice}}.  That scheme permits a recipient to process the
 content of a message without having to receive the entire message.  Though the
 content might subsequently be truncated, the partial content that is received is
 known to be correct.  This is similar to the integrity guarantee provided by
-HTTPS [RFC2818].
+HTTPS {{?RFC2818}}.
 
 The major drawback of any integrity scheme that it is not possible to prime a
 recipient with any information that would allow them to make a decision
 regarding content that isn't yet known.  Thus, for example, it is impossible to
-construct an integrity protected reference such as the one described in [SRI]
+construct an integrity protected reference such as the one described in {{SRI}}
 without first knowing the precise details of the content that is being referred
 to.
 
@@ -119,7 +111,7 @@ considered.
   message that is both signed by a particular sender and encrypted toward a
   particular recipient does not imply that the message was originally
   constructed by that sender to be sent to that recipient.  If separately
-  applied, the outermost signature or encryption can be replaced [DAVIS].
+  applied, the outermost signature or encryption can be replaced {{DAVIS}}.
 
 This document defines a signature scheme with a narrow scope, the intent being
 to provide the ability to use signatures for integrity protection without
@@ -143,7 +135,7 @@ negotiation are so clearly delineated.
 
 ## Terminology          {#Terminology}
 
-RFC 2119 [RFC2119] defines the terms MUST, SHOULD, and MAY.
+RFC 2119 {{!RFC2119}} defines the terms MUST, SHOULD, and MAY.
 
 
 ## Example
@@ -166,23 +158,24 @@ Hello, World!
 ~~~
 
 Line wrapping is added to this example to fit formatting constraints.  The
-omitted `p` attribute for this example is included in [I-D.thomson-http-mice].
+omitted `p` attribute for this example is included in
+{{!I-D.thomson-http-mice}}.
 
 
 # Signature Usage {#sig}
 
-A signature uses the MI header field defined in [I-D.thomson-http-mice].  A new
-`p256ecdsa` parameter is defined that carries an ECDSA [X9.62] signature over the P-256
-curve [FIPS186] using the SHA-2 hash [FIPS180-2].  The signature is encoded
-in the parameter using base64url encoding [RFC7515].
+A signature uses the MI header field defined in {{!I-D.thomson-http-mice}}.  A
+new `p256ecdsa` parameter is defined that carries an ECDSA {{X9.62}} signature
+over the P-256 curve {{FIPS186}} using the SHA-2 hash {{FIPS180-2}}.  The
+signature is encoded in the parameter using base64url encoding {{!RFC7515}}.
 
 The input to the signature is the concatenation of:
 
-* the UTF-8 [RFC3629] encoded string "MI: p256ecdsa",
+* the UTF-8 {{!RFC3629}} encoded string "MI: p256ecdsa",
 * a single zero-valued octet,
-* the octets of the effective request URI (Section 5.5 of [RFC7230]),
+* the octets of the effective request URI (Section 5.5 of {{!RFC7230}}),
 * a single zero-valued octet, and
-* the "mi-sha256" root integrity proof for the content [I-D.thomson-http-mice].
+* the "mi-sha256" root integrity proof for the content {{!I-D.thomson-http-mice}}.
 
 The `p256ecdsa` field contains the concatenated bitstrings of the R and S
 outputs of the ECDSA signature algorithm.
@@ -214,10 +207,10 @@ client cannot know that a server will consider two different URI encodings to be
 identical.
 
 Thus, a normalization scheme specific to `https://` URIs is defined, based on
-the recommendations in [RFC7230] and [RFC3986].  Use of signatures with other
+the recommendations in {{!RFC7230}} and {{!RFC3986}}.  Use of signatures with other
 URI schemes is not defined.  The following transformations are made to the
 effective request URI, with reference to the corresponding part of Section 6.2
-of [RFC3986]:
+of {{!RFC3986}}:
 
 * The `https://` scheme is rendered in lower case (S6.2.2.1)
 
@@ -227,7 +220,7 @@ of [RFC3986]:
   leading zeroes
 
 * An IPv6 literal is represented according to the canonical form defined in
-  [RFC5952]
+  {{!RFC5952}}
 
 * A port number is included without leading zeros; the colon and port are
   omitted entirely if the port number is 443 (S6.2.3)
@@ -247,7 +240,7 @@ equivalance that are context-specific.
 
 Clients that encounter signature failures MAY attempt to re-acquire resources by
 passing the normalized effective request URI in a request that uses the
-absolute-form (see Section 5.3.2 of [RFC7230]).
+absolute-form (see Section 5.3.2 of {{!RFC7230}}).
 
 Servers that receive a request in the absolute-form SHOULD use the octets
 provided by the client as input as input to the above normalization procedure
@@ -262,18 +255,18 @@ that resource.
 A `keyid` parameter is added for use with the MI header field.  This allows a
 recipient to identify the key that can be used to validate the signature in the
 `p256ecdsa` parameter.  The `keyid` SHOULD match a value in the Crypto-Key
-header field [I-D.ietf-httpbis-encryption-encoding] if that header field is is
+header field {{!I-D.ietf-httpbis-encryption-encoding}} if that header field is is
 used.
 
 Providing a signature key is typically only useful where the provision of the
 key can be attributed a higher level of trust than the signature itself.  A
-message sent using out-of-band content-encoding [I-D.reschke-http-oob-encoding]
+message sent using out-of-band content-encoding {{?I-D.reschke-http-oob-encoding}}
 is one situation that might benefit from the use of this header field.
 
 This document defines a new parameter for use with the Crypto-Key header field.
-The `p256ecdsa` parameter conveys an uncompressed P-256 public key [X.692].  The
+The `p256ecdsa` parameter conveys an uncompressed P-256 public key {{X9.62}}.  The
 `p256ecdsa` parameter for the Crypto-Key header field is encoded using base64url
-encoding [RFC7515].
+encoding {{!RFC7515}}.
 
 
 # Security Considerations {#security}
@@ -304,7 +297,7 @@ the signature:
 * The signature is not bound to a particular time, therefore responses can be
   replayed at other times.
 
-In particular, if content negotiation (see Section 3.4 of [RFC7231]) is used,
+In particular, if content negotiation (see Section 3.4 of {{?RFC7231}}) is used,
 then all alternative representations for a given URI will all have valid
 signatures.  For this reason, servers SHOULD avoid combining content negotiation
 with signatures.
