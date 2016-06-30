@@ -166,7 +166,7 @@ omitted `p` attribute for this example is included in
 
 A signature uses the MI header field defined in {{!I-D.thomson-http-mice}}.  A
 new `p256ecdsa` parameter is defined that carries an ECDSA {{X9.62}} signature
-over the P-256 curve {{FIPS186}} using the SHA-2 hash {{FIPS180-2}}.  The
+over the P-256 curve {{FIPS186}} using the SHA-256 hash {{FIPS180-2}}.  The
 signature is encoded in the parameter using base64url encoding {{!RFC7515}}.
 
 The input to the signature is the concatenation of:
