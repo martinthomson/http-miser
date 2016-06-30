@@ -4,8 +4,8 @@
 
 httpbis                                                       M. Thomson
 Internet-Draft                                                   Mozilla
-Intended status: Informational                             June 29, 2016
-Expires: December 31, 2016
+Intended status: Informational                             June 30, 2016
+Expires: January 1, 2017
 
 
            Merkle-Integrity Signature Extension for Responses
@@ -33,7 +33,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 31, 2016.
+   This Internet-Draft will expire on January 1, 2017.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Thomson                 Expires December 31, 2016               [Page 1]
+Thomson                  Expires January 1, 2017                [Page 1]
 
 Internet-Draft                    MISER                        June 2016
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Thomson                 Expires December 31, 2016               [Page 2]
+Thomson                  Expires January 1, 2017                [Page 2]
 
 Internet-Draft                    MISER                        June 2016
 
@@ -165,7 +165,7 @@ Internet-Draft                    MISER                        June 2016
 
 
 
-Thomson                 Expires December 31, 2016               [Page 3]
+Thomson                  Expires January 1, 2017                [Page 3]
 
 Internet-Draft                    MISER                        June 2016
 
@@ -191,7 +191,7 @@ Internet-Draft                    MISER                        June 2016
    A signature uses the MI header field defined in
    [I-D.thomson-http-mice].  A new "p256ecdsa" parameter is defined that
    carries an ECDSA [X9.62] signature over the P-256 curve [FIPS186]
-   using the SHA-2 hash [FIPS180-2].  The signature is encoded in the
+   using the SHA-256 hash [FIPS180-2].  The signature is encoded in the
    parameter using base64url encoding [RFC7515].
 
    The input to the signature is the concatenation of:
@@ -221,7 +221,7 @@ Internet-Draft                    MISER                        June 2016
 
 
 
-Thomson                 Expires December 31, 2016               [Page 4]
+Thomson                  Expires January 1, 2017                [Page 4]
 
 Internet-Draft                    MISER                        June 2016
 
@@ -277,7 +277,7 @@ Internet-Draft                    MISER                        June 2016
 
 
 
-Thomson                 Expires December 31, 2016               [Page 5]
+Thomson                  Expires January 1, 2017                [Page 5]
 
 Internet-Draft                    MISER                        June 2016
 
@@ -333,7 +333,7 @@ Internet-Draft                    MISER                        June 2016
 
 
 
-Thomson                 Expires December 31, 2016               [Page 6]
+Thomson                  Expires January 1, 2017                [Page 6]
 
 Internet-Draft                    MISER                        June 2016
 
@@ -389,7 +389,7 @@ Internet-Draft                    MISER                        June 2016
 
 
 
-Thomson                 Expires December 31, 2016               [Page 7]
+Thomson                  Expires January 1, 2017                [Page 7]
 
 Internet-Draft                    MISER                        June 2016
 
@@ -445,7 +445,7 @@ Internet-Draft                    MISER                        June 2016
 
 
 
-Thomson                 Expires December 31, 2016               [Page 8]
+Thomson                  Expires January 1, 2017                [Page 8]
 
 Internet-Draft                    MISER                        June 2016
 
@@ -501,7 +501,7 @@ Internet-Draft                    MISER                        June 2016
 
 
 
-Thomson                 Expires December 31, 2016               [Page 9]
+Thomson                  Expires January 1, 2017                [Page 9]
 
 Internet-Draft                    MISER                        June 2016
 
@@ -557,4 +557,4 @@ Author's Address
 
 
 
-Thomson                 Expires December 31, 2016              [Page 10]
+Thomson                  Expires January 1, 2017               [Page 10]
