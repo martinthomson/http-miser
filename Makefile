@@ -8,5 +8,5 @@ else
 	git clone --depth 10 -b master https://github.com/martinthomson/i-d-template.git lib
 endif
 
-latest::
+upload::
 	echo tag $$CIRCLE_TAG

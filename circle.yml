@@ -24,3 +24,7 @@ deployment:
     branch: master
     commands:
       - make ghpages
+  release:
+    tag: /draft-.*/
+    commands:
+      - make upload
