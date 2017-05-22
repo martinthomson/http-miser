@@ -2,7 +2,6 @@
 title: Merkle-Integrity Signature Extension for Responses
 abbrev: MISER
 docname: draft-thomson-http-miser-latest
-date: 2016
 category: info
 
 ipr: trust200902
