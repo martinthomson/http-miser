@@ -33,12 +33,6 @@ normative:
       - org: National Institute of Standards and Technology (NIST)
     date: July 2013
     seriesinfo: NIST PUB 186-4
-  FIPS180-2:
-    title: NIST FIPS 180-2, Secure Hash Standard
-    author:
-      name: NIST
-      ins: National Institute of Standards and Technology, U.S. Department of Commerce
-    date: 2002-08
 
 informative:
   SRI:
@@ -166,8 +160,9 @@ omitted `p` attribute for this example is included in
 
 A signature uses the MI header field defined in {{!I-D.thomson-http-mice}}.  A
 new `p256ecdsa` parameter is defined that carries an ECDSA {{X9.62}} signature
-over the P-256 curve {{FIPS186}} using the SHA-256 hash {{FIPS180-2}}.  The
-signature is encoded in the parameter using base64url encoding {{!RFC7515}}.
+over the P-256 curve {{FIPS186}} using the SHA-256 hash
+{{?FIPS180=DOI.10.6028/NIST.FIPS.180-4}}.  The signature is encoded in the
+parameter using base64url encoding {{!RFC7515}}.
 
 The input to the signature is the concatenation of:
 
