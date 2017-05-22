@@ -9,4 +9,4 @@ else
 endif
 
 latest::
-	echo $$CIRCLE_TAG
+	echo tag $$CIRCLE_TAG
