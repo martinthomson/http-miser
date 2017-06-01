@@ -3,7 +3,7 @@
 This is the working area for the Individual internet-draft, "Content-Signature Header Field for HTTP".
 
 * [Editor's copy](https://martinthomson.github.io/http-miser/)
-* [Individual Draft] (https://tools.ietf.org/html/draft-thomson-http-miser)
+* [Individual Draft](https://tools.ietf.org/html/draft-thomson-http-miser)
 
 
 ## Building the Draft
