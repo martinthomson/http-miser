@@ -4,8 +4,8 @@
 
 httpbis                                                       M. Thomson
 Internet-Draft                                                   Mozilla
-Intended status: Informational                             June 30, 2016
-Expires: January 1, 2017
+Intended status: Informational                             June 16, 2017
+Expires: December 18, 2017
 
 
            Merkle-Integrity Signature Extension for Responses
@@ -33,11 +33,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 1, 2017.
+   This Internet-Draft will expire on December 18, 2017.
 
 Copyright Notice
 
-   Copyright (c) 2016 IETF Trust and the persons identified as the
+   Copyright (c) 2017 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Thomson                  Expires January 1, 2017                [Page 1]
+Thomson                 Expires December 18, 2017               [Page 1]
 
-Internet-Draft                    MISER                        June 2016
+Internet-Draft                    MISER                        June 2017
 
 
 Table of Contents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Thomson                  Expires January 1, 2017                [Page 2]
+Thomson                 Expires December 18, 2017               [Page 2]
 
-Internet-Draft                    MISER                        June 2016
+Internet-Draft                    MISER                        June 2017
 
 
    o  Signatures can be constructed in a way that permits unwanted
@@ -165,9 +165,9 @@ Internet-Draft                    MISER                        June 2016
 
 
 
-Thomson                  Expires January 1, 2017                [Page 3]
+Thomson                 Expires December 18, 2017               [Page 3]
 
-Internet-Draft                    MISER                        June 2016
+Internet-Draft                    MISER                        June 2017
 
 
    HTTP/1.1 200 OK
@@ -191,7 +191,7 @@ Internet-Draft                    MISER                        June 2016
    A signature uses the MI header field defined in
    [I-D.thomson-http-mice].  A new "p256ecdsa" parameter is defined that
    carries an ECDSA [X9.62] signature over the P-256 curve [FIPS186]
-   using the SHA-256 hash [FIPS180-2].  The signature is encoded in the
+   using the SHA-256 hash [FIPS180].  The signature is encoded in the
    parameter using base64url encoding [RFC7515].
 
    The input to the signature is the concatenation of:
@@ -221,9 +221,9 @@ Internet-Draft                    MISER                        June 2016
 
 
 
-Thomson                  Expires January 1, 2017                [Page 4]
+Thomson                 Expires December 18, 2017               [Page 4]
 
-Internet-Draft                    MISER                        June 2016
+Internet-Draft                    MISER                        June 2017
 
 
    different header fields and content.  Relying on signatures for
@@ -277,9 +277,9 @@ Internet-Draft                    MISER                        June 2016
 
 
 
-Thomson                  Expires January 1, 2017                [Page 5]
+Thomson                 Expires December 18, 2017               [Page 5]
 
-Internet-Draft                    MISER                        June 2016
+Internet-Draft                    MISER                        June 2017
 
 
    Note that an effective request URI does not contain a fragment.
@@ -333,9 +333,9 @@ Internet-Draft                    MISER                        June 2016
 
 
 
-Thomson                  Expires January 1, 2017                [Page 6]
+Thomson                 Expires December 18, 2017               [Page 6]
 
-Internet-Draft                    MISER                        June 2016
+Internet-Draft                    MISER                        June 2017
 
 
    take any unauthenticated material as input.  In particular, the
@@ -389,9 +389,9 @@ Internet-Draft                    MISER                        June 2016
 
 
 
-Thomson                  Expires January 1, 2017                [Page 7]
+Thomson                 Expires December 18, 2017               [Page 7]
 
-Internet-Draft                    MISER                        June 2016
+Internet-Draft                    MISER                        June 2017
 
 
    o  Purpose: Identify the key that is in use.
@@ -424,36 +424,31 @@ Internet-Draft                    MISER                        June 2016
 
 6.1.  Normative References
 
-   [FIPS180-2]
-              Department of Commerce, National., "NIST FIPS 180-2,
-              Secure Hash Standard", August 2002.
-
    [FIPS186]  National Institute of Standards and Technology (NIST),
               "Digital Signature Standard (DSS)", NIST PUB 186-4 , July
               2013.
 
    [I-D.ietf-httpbis-encryption-encoding]
               Thomson, M., "Encrypted Content-Encoding for HTTP", draft-
-              ietf-httpbis-encryption-encoding-01 (work in progress),
-              March 2016.
+              ietf-httpbis-encryption-encoding-09 (work in progress),
+              April 2017.
 
    [I-D.thomson-http-mice]
               Thomson, M., "Merkle Integrity Content Encoding", draft-
-              thomson-http-mice-00 (work in progress), January 2016.
-
-
-
-
-
-Thomson                  Expires January 1, 2017                [Page 8]
-
-Internet-Draft                    MISER                        June 2016
-
+              thomson-http-mice-02 (work in progress), October 2016.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
+
+
+
+
+Thomson                 Expires December 18, 2017               [Page 8]
+
+Internet-Draft                    MISER                        June 2017
+
 
    [RFC3629]  Yergeau, F., "UTF-8, a transformation format of ISO
               10646", STD 63, RFC 3629, DOI 10.17487/RFC3629, November
@@ -489,10 +484,14 @@ Internet-Draft                    MISER                        June 2016
               <http://world.std.com/~dtd/sign_encrypt/
               sign_encrypt7.html>.
 
+   [FIPS180]  Dang, Q., "Secure Hash Standard", National Institute of
+              Standards and Technology report,
+              DOI 10.6028/nist.fips.180-4, July 2015.
+
    [I-D.reschke-http-oob-encoding]
               Reschke, J. and S. Loreto, "'Out-Of-Band' Content Coding
-              for HTTP", draft-reschke-http-oob-encoding-06 (work in
-              progress), April 2016.
+              for HTTP", draft-reschke-http-oob-encoding-11 (work in
+              progress), March 2017.
 
    [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818,
               DOI 10.17487/RFC2818, May 2000,
@@ -501,9 +500,10 @@ Internet-Draft                    MISER                        June 2016
 
 
 
-Thomson                  Expires January 1, 2017                [Page 9]
+
+Thomson                 Expires December 18, 2017               [Page 9]
 
-Internet-Draft                    MISER                        June 2016
+Internet-Draft                    MISER                        June 2017
 
 
    [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
@@ -557,4 +557,4 @@ Author's Address
 
 
 
-Thomson                  Expires January 1, 2017               [Page 10]
+Thomson                 Expires December 18, 2017              [Page 10]
